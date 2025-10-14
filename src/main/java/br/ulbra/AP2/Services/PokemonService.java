@@ -2,9 +2,11 @@ package br.ulbra.AP2.Services;
 
 import br.ulbra.AP2.Models.Pokemon;
 import br.ulbra.AP2.Repositories.PokemonRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class PokemonService {
     private PokemonRepository pokemonRepository;
 
