@@ -20,4 +20,25 @@ public class PokemonService {
         return pokemonRepository.getPokemonById(idPokemon);
     }
 
+    public Pokemon getPokemonByName(String namePokemon) {
+        for (Pokemon pokemon : getAllPokemons()) {
+            if (pokemon.name.equals(namePokemon)) {
+                return pokemon;
+            }
+        }
+        return null;
+    }
+
+    public void updatePokemonById(Pokemon pokemon, int idPokemon) {
+        pokemonRepository.setPokemon(pokemon, idPokemon);
+    }
+
+    public void deletePokemonById(int idPokemon) {
+        pokemonRepository.deletePokemon(idPokemon);
+    }
+
+    public void addPokemon(Pokemon pokemon) {
+        pokemonRepository.addPokemon(pokemon);
+    }
+
 }
