@@ -33,6 +33,17 @@ public class PokemonController {
         return HttpStatus.OK;
     }
 
+    @PostMapping
+    public HttpStatus addPokemon(@RequestBody List<Pokemon> pokemons) {
+        this.pokemonService.addPokemons(pokemons);
+        return HttpStatus.OK;
+    }
+
+    @PostMapping("/name")
+    public Pokemon getPokemonByName(@RequestBody String pokemonName) {
+        return this.pokemonService.getPokemonByName(pokemonName);
+    }
+
     @PutMapping("/id")
     public HttpStatus editPokemon(@PathVariable int id, @RequestBody Pokemon pokemon) {
         this.pokemonService.updatePokemonById(pokemon, id);

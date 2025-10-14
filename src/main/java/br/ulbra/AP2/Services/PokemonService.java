@@ -43,4 +43,10 @@ public class PokemonService {
         pokemonRepository.addPokemon(pokemon);
     }
 
+    public void addPokemons(List<Pokemon> pokemons) {
+        for (Pokemon pokemon : pokemons) {
+            pokemonRepository.addPokemon(pokemon);
+        }
+    }
+
 }
