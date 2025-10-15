@@ -1,10 +1,12 @@
 package br.ulbra.AP2.Repositories;
 
 import br.ulbra.AP2.Models.Pokemon;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class PokemonRepository {
     private List<Pokemon> pokemons;
 
