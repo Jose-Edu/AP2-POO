@@ -8,7 +8,7 @@ import java.util.List;
 
 @Service
 public class PokemonService {
-    private PokemonRepository pokemonRepository;
+    private final PokemonRepository pokemonRepository;
 
     public PokemonService(PokemonRepository pokemonRepository) {
         this.pokemonRepository = pokemonRepository;
@@ -31,12 +31,12 @@ public class PokemonService {
         return null;
     }
 
-    public void updatePokemonById(Pokemon pokemon, int idPokemon) {
-        pokemonRepository.setPokemon(pokemon, idPokemon);
+    public Pokemon updatePokemonById(Pokemon pokemon, int idPokemon) {
+        return pokemonRepository.setPokemon(pokemon, idPokemon);
     }
 
-    public void deletePokemonById(int idPokemon) {
-        pokemonRepository.deletePokemon(idPokemon);
+    public Pokemon deletePokemonById(int idPokemon) {
+        return pokemonRepository.deletePokemon(idPokemon);
     }
 
     public void addPokemon(Pokemon pokemon) {

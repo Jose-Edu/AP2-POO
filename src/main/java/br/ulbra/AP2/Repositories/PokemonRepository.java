@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public class PokemonRepository {
-    private List<Pokemon> pokemons;
+    private final List<Pokemon> pokemons;
 
     public PokemonRepository() {
         this.pokemons = new ArrayList<>();
@@ -22,16 +22,40 @@ public class PokemonRepository {
         this.pokemons.add(pokemon);
     }
 
+    private int getPositionById(int pokemonId) {
+        for(int i = 0; i < pokemons.size(); i++) {
+            if (pokemonId == pokemons.get(i).pokeId) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public Pokemon getPokemonById(int idPokemon) {
-        return this.pokemons.get(idPokemon);
+        int pokemonPos = getPositionById(idPokemon);
+        if (pokemonPos == -1) {
+            return null;
+        }
+
+        return pokemons.get(pokemonPos);
     }
 
-    public void setPokemon(Pokemon pokemon, int idPokemon) {
-        this.pokemons.set(idPokemon, pokemon);
+    public Pokemon setPokemon(Pokemon pokemon, int idPokemon) {
+        int pokemonPos = getPositionById(idPokemon);
+        if (pokemonPos == -1) {
+            return null;
+        }
+        this.pokemons.set(pokemonPos, pokemon);
+        return pokemon;
     }
 
-    public void deletePokemon(int idPokemon) {
-        this.pokemons.remove(idPokemon);
+    public Pokemon deletePokemon(int idPokemon) {
+        Pokemon pokemon = getPokemonById(idPokemon);
+        if (pokemon == null) {
+            return null;
+        }
+        this.pokemons.remove(pokemon);
+        return pokemon;
     }
     
 }
