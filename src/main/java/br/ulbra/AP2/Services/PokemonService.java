@@ -4,6 +4,7 @@ import br.ulbra.AP2.Models.Pokemon;
 import br.ulbra.AP2.Repositories.PokemonRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -39,14 +40,24 @@ public class PokemonService {
         return pokemonRepository.deletePokemon(idPokemon);
     }
 
-    public void addPokemon(Pokemon pokemon) {
-        pokemonRepository.addPokemon(pokemon);
+    public Pokemon addPokemon(Pokemon pokemon) {
+        return pokemonRepository.addPokemon(pokemon);
     }
 
-    public void addPokemons(List<Pokemon> pokemons) {
+    public List<Pokemon> addPokemons(List<Pokemon> pokemons) {
+        List<Pokemon> idErrorPokemons = new ArrayList<>();
+
         for (Pokemon pokemon : pokemons) {
-            pokemonRepository.addPokemon(pokemon);
+            if(pokemonRepository.addPokemon(pokemon) != null){
+                idErrorPokemons.add(pokemon);
+            }
         }
+
+        if(idErrorPokemons.isEmpty()){
+            return null;
+        }
+
+        return idErrorPokemons;
     }
 
 }

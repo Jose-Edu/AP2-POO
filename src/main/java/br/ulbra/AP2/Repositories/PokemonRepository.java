@@ -18,8 +18,12 @@ public class PokemonRepository {
         return pokemons;
     }
 
-    public void addPokemon(Pokemon pokemon) {
+    public Pokemon addPokemon(Pokemon pokemon) {
+        if (getPositionById(pokemon.pokeId) != -1) {
+            return pokemon;
+        }
         this.pokemons.add(pokemon);
+        return null;
     }
 
     private int getPositionById(int pokemonId) {

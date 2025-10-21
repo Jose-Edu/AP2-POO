@@ -23,14 +23,32 @@ public class PokemonController {
     }
 
     @PostMapping("/pokemon")
-    public ResponseEntity<Pokemon> addPokemon(@RequestBody Pokemon pokemon) {
-        this.pokemonService.addPokemon(pokemon);
+    public ResponseEntity<String> addPokemon(@RequestBody Pokemon pokemon) {
+        boolean isInvalidId = this.pokemonService.addPokemon(pokemon) != null;
+        if (isInvalidId) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("O id "+pokemon.pokeId+" já existe, tente outro id");
+        }
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @PostMapping("/pokemon/list")
-    public ResponseEntity<Pokemon> addPokemons(@RequestBody List<Pokemon> pokemons) {
-        this.pokemonService.addPokemons(pokemons);
+    public ResponseEntity<String> addPokemons(@RequestBody List<Pokemon> pokemons) {
+        List<Pokemon> invalidIds = this.pokemonService.addPokemons(pokemons);
+
+        if (invalidIds != null) {
+
+            if (invalidIds.size() == pokemons.size()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ids já existentes, tente outros ids");
+            }
+
+            String rtn = "( ";
+            for (Pokemon pokemon : invalidIds) {
+                rtn += pokemon.pokeId + " ";
+            }
+
+            return ResponseEntity.status(HttpStatus.MULTI_STATUS).body("Parte dos ids já existem, portanto, são inválidos. Os demais foram cadastrados corretamente! Ids inválidos: " + rtn + ")");
+        }
+
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
